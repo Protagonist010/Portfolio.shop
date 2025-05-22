@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sarvesh's Portfolio</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="https://fav.farm/💡" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Dark mode styles */
+    body.dark {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+    body.dark header,
+    body.dark nav,
+    body.dark section,
+    body.dark footer {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+    }
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation-fill-mode: forwards;
+      animation-timing-function: ease-out;
+      animation-duration: 1s;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Hamburger menu styles */
+    .hamburger {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      transition: all 0.25s;
+      position: relative;
+    }
+    .hamburger-top,
+    .hamburger-middle,
+    .hamburger-bottom {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      transform: rotate(0);
+      transition: all 0.5s;
+    }
+    .hamburger-middle {
+      transform: translateY(7px);
+    }
+    .hamburger-bottom {
+      transform: translateY(14px);
+    }
+    .open .hamburger-top {
+      transform: rotate(45deg) translateY(6px) translate(6px);
+    }
+    .open .hamburger-middle {
+      display: none;
+    }
+    .open .hamburger-bottom {
+      transform: rotate(-45deg) translateY(6px) translate(-6px);
+    }
+    .mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .mobile-menu.open {
+      max-height: 500px;
+    }
+    /* Shop styles */
+    #shop {
+      max-width: 6xl;
+      margin: 2rem auto 4rem;
+      padding: 1rem 1.5rem;
+      background: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+    #shop.dark {
+      background: #1e1e1e;
+    }
+    .product-card {
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      transition: box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .product-image {
+      width: 100%;
+      border-radius: 0.5rem;
+      object-fit: cover;
+      height: 150px;
+      margin-bottom: 0.5rem;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding: 0.5rem 0;
+    }
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    .cart-quantity {
+      width: 3rem;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      padding: 0.2rem;
+    }
+    .btn {
+      background-color: #22c55e;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+      border: none;
+    }
+    .btn:hover {
+      background-color: #16a34a;
+    }
+    .btn-danger {
+      background-color: #ef4444;
+    }
+    .btn-danger:hover {
+      background-color: #b91c1c;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-[Poppins] text-gray-800 transition-colors duration-500">
+
+  <!-- Dark Mode Toggle Button -->
+  <button id="darkModeToggle" aria-label="Toggle Dark Mode" 
+    class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 z-50">
+    Dark Mode
+  </button>
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-green-200 to-green-400 text-green-900 py-8 sm:py-10 text-center px-4">
+    <h1 class="text-3xl sm:text-4xl font-bold">Welcome to My Portfolio</h1>
+    <p class="text-md sm:text-lg mt-1">Hi, I'm Sarvesh — future tech leader and creator 🌟</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow sticky top-0 z-10 py-4 dark:bg-gray-900 dark:text-gray-300">
+    <div class="container mx-auto px-4">
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex flex-wrap justify-center gap-3">
+        <a href="#about" class="bg-green-500 text-white font-semibold px-3 sm:px-4 py-2 rounded hover:bg-green-600">About</a>
+        <a href="#achievements" class="bg-green-500 text-white font-semibold px-3 sm:px-4 py-2 rounded hover:bg-green-600">Achievements</a>
+        <a href="#goals" class="bg-green-500 text-white font-semibold px-3 sm:px-4 py-2 rounded hover:bg-green-600">Goals</a>
+        <a href="#personal" class="bg-green-500 text-white font-semibold px-3 sm:px-4 py-2 rounded hover:bg-green-600">Personal</a>
+        <a href="#contact" class="bg-green-500 text-white font-semibold px-3 sm:px-4 py-2 rounded hover:bg-green-600">Contact</a>
+        <a href="#shop" class="bg-green-500 text-white font-semibold px-3 sm:px-4 py-2 rounded hover:bg-green-600">Shop</a>
+      </div>
+      
+      <!-- Mobile Navigation -->
+      <div class="md:hidden flex items-center justify-between">
+        <button id="menu-btn" class="hamburger focus:outline-none">
+          <span class="hamburger-top"></span>
+          <span class="hamburger-middle"></span>
+          <span class="hamburger-bottom"></span>
+        </button>
+      </div>
+      
+      <div id="mobile-menu" class="mobile-menu md:hidden bg-white dark:bg-gray-900">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
+          <a href="#about" class="bg-green-500 text-white font-semibold px-3 py-2 rounded hover:bg-green-600 text-center">About</a>
+          <a href="#achievements" class="bg-green-500 text-white font-semibold px-3 py-2 rounded hover:bg-green-600 text-center">Achievements</a>
+          <a href="#goals" class="bg-green-500 text-white font-semibold px-3 py-2 rounded hover:bg-green-600 text-center">Goals</a>
+          <a href="#personal" class="bg-green-500 text-white font-semibold px-3 py-2 rounded hover:bg-green-600 text-center">Personal</a>
+          <a href="#contact" class="bg-green-500 text-white font-semibold px-3 py-2 rounded hover:bg-green-600 text-center">Contact</a>
+          <a href="#shop" class="bg-green-500 text-white font-semibold px-3 py-2 rounded hover:bg-green-600 text-center">Shop</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Welcome Section -->
+  <section id="welcome" class="max-w-4xl mx-auto my-6 p-4 sm:p-6 bg-white rounded-xl shadow fade-in">
+    <h2 class="text-2xl sm:text-3xl font-bold text-center text-green-600 mb-4">Hello! 👋</h2>
+    <div class="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-6">
+      <img
+        src="sarveshP.JPG"
+        alt="My Photo"
+        class="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover shadow"
+      />
+      <iframe
+        class="w-full sm:w-[560px] h-48 sm:h-40 rounded"
+        src="https://www.youtube.com/embed/KvN3JXICzdM"
+        title="Motivational Tech Video"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <p class="text-center mt-3 text-sm sm:text-base px-2 sm:px-0">
+      I'm <strong>Sarvesh Vinayak Patil</strong>, and I'm thrilled to have you here! This is my space to share my journey,
+      goals, and passion for tech 🚀
+    </p>
+  </section>
+
+  <!-- About Me -->
+  <section id="about" class="max-w-4xl mx-auto my-6 p-4 sm:p-6 bg-white rounded-xl shadow fade-in" style="animation-delay: 0.2s;">
+    <h2 class="text-2xl sm:text-3xl font-bold text-center text-green-600 mb-4">About Me</h2>
+    <ul class="list-disc pl-6 space-y-2 text-sm sm:text-base">
+      <li><strong>Name:</strong> Sarvesh Vinayak Patil</li>
+      <li><strong>Location:</strong> Palghar, Maharashtra, India</li>
+      <li><strong>Education:</strong> Pursuing Computer Engineering at St. John College of Engineering and Management</li>
+      <li><strong>Languages Known:</strong> C, SQL, Python</li>
+    </ul>
+  </section>
+
+  <!-- Achievements -->
+  <section id="achievements" class="max-w-4xl mx-auto my-6 p-4 sm:p-6 bg-white rounded-xl shadow fade-in" style="animation-delay: 0.4s;">
+    <h2 class="text-2xl sm:text-3xl font-bold text-center text-green-600 mb-4">Achievements</h2>
+    <ul class="list-disc pl-6 space-y-2 text-sm sm:text-base">
+      <li>Certified in SQL and .NET</li>
+      <li>Joined a hackathon and developed a Flight Booking System using .NET and MySQL</li>
+      <li>Recognized by Kantascrypt for tech contributions</li>
+    </ul>
+  </section>
+
+  <!-- Future Goals -->
+  <section id="goals" class="max-w-4xl mx-auto my-6 p-4 sm:p-6 bg-white rounded-xl shadow fade-in" style="animation-delay: 0.6s;">
+    <h2 class="text-2xl sm:text-3xl font-bold text-center text-green-600 mb-4">Future Goals</h2>
+    <p class="text-sm sm:text-base px-2 sm:px-0">
+      I aim to become a Senior Software Development Engineer (SDE) in a MAANG company.
+    </p>
+    <p class="mt-2 text-sm sm:text-base px-2 sm:px-0">
+      My mission is to solve real-world problems using technology and inspire the next generation of developers.
+    </p>
+  </section>
+
+  <!-- Personal Side -->
+  <section id="personal" class="max-w-4xl mx-auto my-6 p-4 sm:p-6 bg-white rounded-xl shadow fade-in" style="animation-delay: 0.8s;">
+    <h2 class="text-2xl sm:text-3xl font-bold text-center text-green-600 mb-4">More About Me</h2>
+    <ul class="list-disc pl-6 space-y-2 text-sm sm:text-base">
+      <li><strong>Hobbies:</strong> Reading, Coding, Cricket</li>
+      <li><strong>Role Models:</strong> Elon Musk</li>
+      <li><strong>Books:</strong> "Atomic Habits"</li>
+      <li><strong>Websites:</strong> freeCodeCamp, Medium</li>
+      <li><strong>Startups I admire:</strong> CRED</li>
+      <li><strong>Volunteering Experience:</strong> College tech fest organizer and mentor</li>
+    </ul>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="max-w-4xl mx-auto my-6 p-4 sm:p-6 bg-white rounded-xl shadow fade-in" style="animation-delay: 1s;">
+    <h2 class="text-2xl sm:text-3xl font-bold text-center text-green-600 mb-4">Contact Me</h2>
+    <ul class="space-y-2 text-lg text-center mb-4">
+      <li><a href="tel:+918805442434" class="text-blue-600 hover:underline">📞 +91 8805442434</a></li>
+      <li><a href="https://wa.me/918805442434" class="text-green-600 hover:underline" target="_blank" rel="noopener noreferrer">💬 WhatsApp Chat</a></li>
+      <li><a href="mailto:123sarvesh2121@sjcem.edu.in" class="text-red-600 hover:underline">📧 123sarvesh2121@sjcem.edu.in</a></li>
+    </ul>
+
+    <div id="map" class="w-full h-48 sm:h-64 rounded shadow mb-6"></div>
+
+    <div class="flex flex-wrap justify-center gap-3">
+      <a href="https://github.com/Protagonist010" target="_blank" rel="noopener noreferrer" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 min-w-[120px] text-center">GitHub</a>
+      <a href="https://in.linkedin.com/in/sarvesh-patil-617bb9341" target="_blank" rel="noopener noreferrer" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 min-w-[120px] text-center">LinkedIn</a>
+      <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer" class="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700 min-w-[120px] text-center">Instagram</a>
+      <a href="tel:+918805442434" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 min-w-[120px] text-center">Call</a>
+    </div>
+
+    <form action="https://formspree.io/f/xgegrnkz" method="POST" class="mt-8 space-y-4 max-w-lg mx-auto">
+      <input
+        type="text"
+        name="name"
+        placeholder="Your Name"
+        required
+        class="w-full p-3 border rounded dark:bg-gray-800 dark:text-gray-200"
+      />
+      <input
+        type="email"
+        name="_replyto"
+        placeholder="Your Email"
+        required
+        class="w-full p-3 border rounded dark:bg-gray-800 dark:text-gray-200"
+      />
+      <textarea
+        name="message"
+        placeholder="Your Message"
+        required
+        class="w-full p-3 border rounded dark:bg-gray-800 dark:text-gray-200"
+      ></textarea>
+      <input type="text" name="_gotcha" style="display:none" />
+      <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 w-full sm:w-auto">Send</button>
+    </form>
+    <div id="successMessage" class="hidden text-green-600 mt-4 text-center">Message sent successfully!</div>
+  </section>
+
+  <!-- Shop Section -->
+  <section id="shop" class="max-w-6xl mx-auto my-8 p-6 rounded-lg shadow fade-in" style="animation-delay: 1.2s;">
+    <h2 class="text-3xl font-bold mb-6 text-center text-green-700">Shop My Store</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <!-- Products will be injected here by JS -->
+    </div>
+
+    <h3 class="text-2xl font-semibold mt-10 mb-4 text-green-600">Your Cart</h3>
+    <div id="cart" class="border rounded p-4 max-w-md mx-auto">
+      <p class="text-center text-gray-600">Your cart is empty.</p>
+    </div>
+    <div class="text-center mt-4">
+      <button id="checkoutBtn" class="btn" disabled>Checkout</button>
+    </div>
+  </section>
+
+  <footer class="text-center py-4 text-gray-600 dark:text-gray-400">
+    <small>© 2024 Sarvesh Vinayak Patil. All rights reserved.</small>
+  </footer>
+
+  <script>
+    // Dark Mode Toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      document.getElementById('shop').classList.toggle('dark');
+    });
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Fade-in animation on scroll
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        appearOnScroll.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => {
+      appearOnScroll.observe(fader);
+    });
+
+    // Shop products
+    const products = [
+  {
+    id: 1,
+    name: "Tech T-Shirt",
+    price: 19.99,
+    image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    id: 2,
+    name: "Coding Mug",
+    price: 12.5,
+    image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    id: 3,
+    name: "Laptop Sticker Pack",
+    price: 7.99,
+    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    id: 4,
+    name: "Wireless Keyboard",
+    price: 49.99,
+    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    id: 5,
+    name: "Bluetooth Headphones",
+    price: 79.99,
+    image: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=400&q=80",
+  },
+  {
+    id: 6,
+    name: "Tech Notebook",
+    price: 9.99,
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
+  }
+];
+
+
+    const shopGrid = document.querySelector('#shop > div.grid');
+    const cartDiv = document.getElementById('cart');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    let cart = {};
+
+    // Render products
+    function renderProducts() {
+      shopGrid.innerHTML = '';
+      products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card flex flex-col items-center text-center';
+
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" class="product-image" />
+          <h4 class="font-semibold mb-2">${product.name}</h4>
+          <p class="mb-3">$${product.price.toFixed(2)}</p>
+          <button class="btn add-to-cart" data-id="${product.id}">Add to Cart</button>
+        `;
+
+        shopGrid.appendChild(card);
+      });
+    }
+
+    // Render cart
+    function renderCart() {
+      cartDiv.innerHTML = '';
+      const cartItems = Object.values(cart);
+
+      if (cartItems.length === 0) {
+        cartDiv.innerHTML = `<p class="text-center text-gray-600">Your cart is empty.</p>`;
+        checkoutBtn.disabled = true;
+        return;
+      }
+
+      checkoutBtn.disabled = false;
+
+      cartItems.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'cart-item';
+
+        itemDiv.innerHTML = `
+          <span>${item.name} ($${item.price.toFixed(2)})</span>
+          <input type="number" min="1" value="${item.quantity}" class="cart-quantity" data-id="${item.id}" />
+          <button class="btn btn-danger remove-from-cart" data-id="${item.id}">&times;</button>
+        `;
+
+        cartDiv.appendChild(itemDiv);
+      });
+
+      const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+      const totalDiv = document.createElement('div');
+      totalDiv.className = 'text-right font-semibold mt-3';
+      totalDiv.textContent = `Total: $${total.toFixed(2)}`;
+      cartDiv.appendChild(totalDiv);
+    }
+
+    // Add product to cart
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      if (!product) return;
+      if (cart[id]) {
+        cart[id].quantity++;
+      } else {
+        cart[id] = {...product, quantity: 1};
+      }
+      renderCart();
+    }
+
+    // Remove product from cart
+    function removeFromCart(id) {
+      delete cart[id];
+      renderCart();
+    }
+
+    // Update quantity
+    function updateQuantity(id, qty) {
+      if (!cart[id]) return;
+      if (qty < 1) qty = 1;
+      cart[id].quantity = qty;
+      renderCart();
+    }
+
+    // Event delegation for shop buttons and inputs
+    shopGrid.addEventListener('click', e => {
+      if (e.target.classList.contains('add-to-cart')) {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        addToCart(id);
+      }
+    });
+
+    cartDiv.addEventListener('click', e => {
+      if (e.target.classList.contains('remove-from-cart')) {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        removeFromCart(id);
+      }
+    });
+
+    cartDiv.addEventListener('input', e => {
+      if (e.target.classList.contains('cart-quantity')) {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        const qty = parseInt(e.target.value);
+        if (isNaN(qty) || qty < 1) {
+          e.target.value = 1;
+          updateQuantity(id, 1);
+        } else {
+          updateQuantity(id, qty);
+        }
+      }
+    });
+
+    // Checkout button event
+    checkoutBtn.addEventListener('click', () => {
+      if (Object.keys(cart).length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      alert('Thank you for your purchase! (Demo functionality)');
+      cart = {};
+      renderCart();
+    });
+
+    // Initial render
+    renderProducts();
+    renderCart();
+  </script>
+</body>
+</html>
